@@ -11,10 +11,10 @@ public class partition
 	{
 		Scanner s = new Scanner(System.in);
 		Node tmp = null;
+		System.out.println("Enter the data's to insert");
 		while(n > 0)
 		{
 			n--;
-			System.out.println("Enter the data to insert");
 			int d = s.nextInt();
 			Node newnode = new Node();
 			newnode.data = d;
@@ -51,13 +51,11 @@ public class partition
 				{
 					e = ptr;
 					eptr = ptr;
-					ptr = ptr.next;
 				}
 				else
 				{
 					eptr.next = ptr;
 					eptr = eptr.next;
-					ptr = ptr.next;
 				}
 			}
 			else
@@ -66,23 +64,24 @@ public class partition
 				{
 					o = ptr;
 					optr = ptr;
-					ptr = ptr.next;
 				}
 				else
 				{
 					optr.next = ptr;
 					optr = optr.next;
-					ptr = ptr.next;
 				}	
 			}
-
+			ptr = ptr.next;
+			if(optr!=null) optr.next = null;
+			if(eptr!=null) eptr.next=null;
 		}
-		if(e != null)
+		if(e == null) return o;
+		else if(o == null) return e;
+		else
 		{
-		eptr.next = o;		 
-		return e;
-		}
+		optr.next = e;		 
 		return o;
+		}
 	}
 	public static void main(String args[])
 	{
@@ -92,8 +91,6 @@ public class partition
 		int n = sc.nextInt();
 		partition obj = new partition();
 		head = obj.create(n,head);
-		System.out.println("original linklist is");
-		obj.display(head);
 		Node p = obj.shift(head);
 		System.out.println("After shifting odd and even element list is");
 		obj.display(p);
